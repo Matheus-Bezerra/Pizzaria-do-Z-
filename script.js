@@ -14,7 +14,9 @@ pizzaJson.map((pizza, index) => {
         event.preventDefault()
         let key = event.target.closest('.pizza-item').getAttribute('data-key')
 
-        console.log("Pizza Clicada " + key)
+        el('.pizzaBig img').src = pizzaJson[key].img
+        el('.pizzaInfo h1').innerHTML = pizzaJson[key].name
+        el('.pizzaInfo--desc').innerHTML = pizzaJson[key].description
 
         
         el('.pizzaWindowArea').style.opacity = 0
