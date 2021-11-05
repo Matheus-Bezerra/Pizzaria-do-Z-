@@ -1,4 +1,4 @@
-let modalQt
+let modalQt = 1
 
 const el = (el) => document.querySelector(el)
 const els = (el) => document.querySelectorAll(el)
@@ -56,4 +56,24 @@ function closeModal() {
 
 els('.pizzaInfo--cancelButton, .pizzaInfo--cancelMobileButton').forEach((item) => {
     item.addEventListener('click', closeModal)
+})
+
+el('.pizzaInfo--qtmenos').addEventListener('click', () => {
+    if(modalQt > 1) {
+        modalQt --
+        el('.pizzaInfo--qt').innerHTML = modalQt
+        return
+    }
+})
+
+el('.pizzaInfo--qtmais').addEventListener('click', () => {
+    modalQt ++
+    el('.pizzaInfo--qt').innerHTML = modalQt
+})
+
+els('.pizzaInfo--size').forEach((size, sizeIndex) => {
+    size.addEventListener('click', (event) => {
+        el('.pizzaInfo--size.selected').classList.remove('selected')
+        size.classList.add('selected')
+    })
 })
