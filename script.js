@@ -1,4 +1,6 @@
+let cart = [] // nosso carrinho
 let modalQt = 1
+let modalKey = 0
 
 const el = (el) => document.querySelector(el)
 const els = (el) => document.querySelectorAll(el)
@@ -6,9 +8,8 @@ const els = (el) => document.querySelectorAll(el)
 // listagens das pizzas
 pizzaJson.map((pizza, index) => {
     let pizzaItem = el('.models .pizza-item').cloneNode(true)
-    modalQt = 1
     // preencher as informações em pizzaItem na main da página
-
+    
     pizzaItem.setAttribute('data-key', index)
     pizzaItem.querySelector('.pizza-item--img img').src = pizza.img
     pizzaItem.querySelector('.pizza-item--price').innerHTML = `R$ ${pizza.price.toFixed(2)}`
@@ -16,9 +17,11 @@ pizzaJson.map((pizza, index) => {
     pizzaItem.querySelector('.pizza-item--desc').innerHTML = pizza.description
     pizzaItem.querySelector('a').addEventListener('click', (event) => {
         event.preventDefault()
-
+        
         // info da modal
         let key = event.target.closest('.pizza-item').getAttribute('data-key')
+        modalQt = 1
+        modalKey = key
 
         el('.pizzaBig img').src = pizzaJson[key].img
         el('.pizzaInfo h1').innerHTML = pizzaJson[key].name
@@ -76,4 +79,16 @@ els('.pizzaInfo--size').forEach((size, sizeIndex) => {
         el('.pizzaInfo--size.selected').classList.remove('selected')
         size.classList.add('selected')
     })
+})
+
+el('.pizzaInfo--addButton').addEventListener('click', () => {
+    let size = parseInt(el('.pizzaInfo--size.selected').getAttribute('data-key'))
+
+    cart.push({
+        id: pizzaJson[modalKey].id,
+        size,
+        qt: modalQt
+    })
+
+    closeModal()
 })
