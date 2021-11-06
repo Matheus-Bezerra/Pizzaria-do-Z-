@@ -99,7 +99,19 @@ el('.pizzaInfo--addButton').addEventListener('click', () => {
     closeModal()
 })
 
+el('.menu-openner').addEventListener('click', () => {
+    if(cart.length > 0){
+        el('aside').style.left = '0'
+    }
+})
+
+el('.menu-closer').addEventListener('click', () => {
+    el('aside').style.left = '100vw'
+})
+
 function updateCart() {
+    el('.menu-openner span').innerHTML = cart.length
+
     if(cart.length > 0) {
         el('aside').classList.add('show')
         el('aside .cart').innerHTML = ''
@@ -155,7 +167,9 @@ function updateCart() {
         el('.desconto span:last-child').innerHTML = `R$ ${desconto.toFixed(2)}`
         el('.total span:last-child').innerHTML = `R$ ${total.toFixed(2)}`
 
+
     } else {
         el('aside').classList.remove('show')
+        el('aside').style.left = '100vw'
     }
 }
